@@ -10,6 +10,8 @@ import { JwtStrategy } from './auth/jwt.strategy';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { ItemModule } from './item/item.module';
+import { FriendModule } from './friend/friend.module';
+import { GameSessionModule } from './gamesession/game-session.module';
 
 @Module({
   imports: [
@@ -19,6 +21,8 @@ import { ItemModule } from './item/item.module';
     ConfigModule.forRoot(),
     MongooseModule.forRoot(process.env.MONGO_URI),
     ItemModule,
+    FriendModule,
+    GameSessionModule,
   ],
   controllers: [AppController],
   providers: [

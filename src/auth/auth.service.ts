@@ -146,9 +146,7 @@ export class AuthService {
       if (response.data) {
         return response.data;
       } else {
-        {
-          throw new InternalServerErrorException('Token exchange failed');
-        }
+        throw new InternalServerErrorException('Token exchange failed');
       }
     } catch (error) {
       console.log(error);

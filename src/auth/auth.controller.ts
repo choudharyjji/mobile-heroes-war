@@ -12,7 +12,9 @@ import { AuthService } from './auth.service';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { LocalAuthGuard } from './local-auth.guard';
 import { CustomIdAuthDto } from './dto/custom-id-auth.dto';
+import { SkipAuth } from './auth.decorator';
 
+@SkipAuth()
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
@@ -31,7 +33,6 @@ export class AuthController {
   async SignUp(@Body() CreateUserDto: CreateUserDto): Promise<any> {
     return await this.authService.signUp(CreateUserDto);
   }
-
   @Post('exchange-token')
   async exchangeToken() {
     try {
@@ -46,6 +47,8 @@ export class AuthController {
   async authenticateWithCustomId(@Body() customIdAuthDto: CustomIdAuthDto) {
     try {
       const statelessToken = await this.authService.exchangeToken();
+      console.log('statelessToken', statelessToken);
+
       const authResponse = await this.authService.authenticateWithCustomId(
         statelessToken,
         customIdAuthDto,
